@@ -7,14 +7,14 @@ var express = require("express"),
   passport = require("passport"),
   LocalStrategy = require("passport-local"),
   methodOverride = require("method-override"),
-  Campground = require("./models/campground"),
+  Item = require("./models/item"),
   Comment = require("./models/comment"),
   User = require("./models/user"),
   seedDB = require("./seeds");
-  //Campground.remove({}, function(err){});//restart campgrounds data
+  //Item.remove({}, function(err){});//restart items data
 //requiring routs
 var commentRouts = require("./routs/comments"),
-    campgroundRouts = require("./routs/campgrounds"),
+    itemRouts = require("./routs/items"),
     authRouts = require("./routs/index");
 
 
@@ -54,7 +54,7 @@ app.use(function(req, res, next){
 });
 
 app.use(authRouts);
-app.use(campgroundRouts);
+app.use(itemRouts);
 app.use(commentRouts);
 
 //==================================

@@ -1,6 +1,6 @@
 var express = require("express"),
   router = express.Router(),
-  Campground = require("../models/campground"),
+  Item = require("../models/item"),
   Comment = require("../models/comment"),
   middleware = require('../middleware');
 
@@ -8,24 +8,24 @@ var express = require("express"),
 //  COMMENTS ROUTES
 //==================================
 //open new comment form
-router.get("/campgrounds/:id/comments/new", middleware.isLoggedIn, function (req, res) {
-  //find the campground with provided id
-  Campground.findById(req.params.id, function (err, foundCampground) {
+router.get("/items/:id/comments/new", middleware.isLoggedIn, function (req, res) {
+  //find the item with provided id
+  Item.findById(req.params.id, function (err, foundItem) {
     if (err) {
       console.log(err);
     } else {
       console.log(req.params.id);
-      res.render("comments/new", { campground: foundCampground });
+      res.render("comments/new", { item: foundItem });
     }
   });
 });
 
 //handle adding new comment
-router.post("/campgrounds/:id/comments", middleware.isLoggedIn, function (req, res) {
-  Campground.findById(req.params.id, function (err, campground) {
+router.post("/items/:id/comments", middleware.isLoggedIn, function (req, res) {
+  Item.findById(req.params.id, function (err, item) {
     if (err) {
       console.log(err);
-      res.redirect("/campgrounds/");
+      res.redirect("/items/");
     } else {
       Comment.create(req.body.comment, function (err, comment) {
         if (err) {
@@ -38,11 +38,11 @@ router.post("/campgrounds/:id/comments", middleware.isLoggedIn, function (req, r
           //save the comment
           comment.save();
 
-          campground.comments.push(comment);
-          campground.save();
+          item.comments.push(comment);
+          item.save();
           console.log(comment);
           req.flash("success", "Successfully added comment");
-          res.redirect("/campgrounds/" + campground._id);
+          res.redirect("/items/" + item._id);
         }
       });
     }
@@ -50,13 +50,13 @@ router.post("/campgrounds/:id/comments", middleware.isLoggedIn, function (req, r
 });
 
 //comments edit rout
-router.get("/campgrounds/:id/comments/:comment_id/edit", middleware.checkCommentOwnership, function (req, res) {
+router.get("/items/:id/comments/:comment_id/edit", middleware.checkCommentOwnership, function (req, res) {
   Comment.findById(req.params.comment_id, function (err, foundComment) {
     if (err) {
       res.redirect("back");
     } else {
       res.render("comments/edit", {
-        campground_id: req.params.id,
+        item_id: req.params.id,
         comment: foundComment,
       });
     }
@@ -64,7 +64,7 @@ router.get("/campgrounds/:id/comments/:comment_id/edit", middleware.checkComment
 });
 
 //comments edit rout
-router.put("/campgrounds/:id/comments/:comment_id", middleware.checkCommentOwnership, function (req, res) {
+router.put("/items/:id/comments/:comment_id", middleware.checkCommentOwnership, function (req, res) {
   Comment.findByIdAndUpdate(req.params.comment_id, req.body.comment, function (
     err,
     updatedComment
@@ -72,19 +72,19 @@ router.put("/campgrounds/:id/comments/:comment_id", middleware.checkCommentOwner
     if (err) {
       res.redirect("back");
     } else {
-      res.redirect("/campgrounds/" + req.params.id);
+      res.redirect("/items/" + req.params.id);
     }
   });
 });
 
 //comments destroy rout
-router.delete("/campgrounds/:id/comments/:comment_id", middleware.checkCommentOwnership, function (req, res) {
+router.delete("/items/:id/comments/:comment_id", middleware.checkCommentOwnership, function (req, res) {
   Comment.findByIdAndRemove(req.params.comment_id, function (err) {
     if (err) {
       res.redirect("back");
     } else {
       req.flash("success", "Comment deleted");
-      res.redirect("/campgrounds/" + req.params.id);
+      res.redirect("/items/" + req.params.id);
     }
   });
 });
