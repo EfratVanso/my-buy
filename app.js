@@ -60,5 +60,5 @@ app.use(commentRouts);
 //==================================
 
 app.listen(3001, () => {
-  console.log("yelp camp running on port 3001");
+  console.log("my buy running on port 3001");
 });

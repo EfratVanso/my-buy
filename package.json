@@ -1,5 +1,5 @@
 {
-  "name": "yelp-camp",
+  "name": "my-buy",
   "version": "1.0.0",
   "description": "",
   "main": "app.js",
@@ -8,14 +8,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/EfratVanso/yelp-camp.git"
+    "url": "git+https://github.com/EfratVanso/my-buy.git"
   },
   "author": "Efrat Vanso",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/EfratVanso/yelp-camp/issues"
+    "url": "https://github.com/EfratVanso/my-buy/issues"
   },
-  "homepage": "https://github.com/EfratVanso/yelp-camp#readme",
+  "homepage": "https://github.com/EfratVanso/my-buy#readme",
   "dependencies": {
     "axios": "^0.19.2",
     "body-parser": "^1.19.0",
