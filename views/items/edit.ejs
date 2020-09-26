@@ -3,9 +3,61 @@
 <div class="container">
   <h2 style="text-align: center;">Edit <%=item.name%></h2>
   <div class="row">
-    <div style="width: 30%; margin: 25px auto;">
+    <div style="width: 50%; margin: 25px auto;">
       <form action="/items/<%=item._id%>?_method=PUT" method="POST">
         <div class="form-group">
+          <label>Link</label>
+          <input
+          required
+            type="text"
+            name="item[link]"
+            class="form-control"
+            placeholder="link"
+            value="<%=item.link%>"
+          />
+        </div>
+        <div class="form-group">
+          <label>Title</label>
+          <input
+          required
+            type="text"
+            name="item[name]"
+            class="form-control"
+            value="<%=item.name%>"
+
+          />
+        </div>
+        <div class="form-group">
+          <label>Price</label>
+          <input
+          required
+            type="number"
+            name="item[price]"
+            class="form-control"
+            placeholder="price"
+            min="0.01"
+            step="0.01"
+            value="<%=item.price%>"
+          />
+        </div>
+        <div class="form-group">
+          <label>Description</label>
+          <textarea
+          required
+            type="text"
+            name="item[description]"
+            class="form-control"
+            placeholder="description"
+            rows="2"
+          >
+          <%=item.description%>
+                  </textarea>
+        </div>
+    
+        
+  <!-- ----------------------------- -->
+
+        <!-- <div class="form-group">
           <input
             type="text"
             name="item[name]"
@@ -20,8 +72,6 @@
             class="form-control"
             placeholder="price"
             value="<%=item.price%>"
-            min="0.01"
-            step="10"
           />
         </div>
         <div class="form-group">
@@ -39,7 +89,7 @@
             class="form-control"
             value="<%=item.description%>"
           />
-        </div>
+        </div> -->
         <div class="form-group">
           <button class="btn btn-lg btn-primary btn-block">
             Submit

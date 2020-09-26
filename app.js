@@ -19,7 +19,9 @@ var commentRouts = require("./routs/comments"),
 
 
 // mongoose.connect('mongodb://localhost:27017/yelp_camp', {useNewUrlParser: true, useUnifiedTopology: true});
-mongoose.connect("mongodb://localhost/yelp_camp", {
+
+//mongoose.connect("mongodb://localhost/yelp_camp", {
+mongoose.connect("mongodb://localhost/my-buy", {
   useNewUrlParser: true,
   useUnifiedTopology: true,
 });

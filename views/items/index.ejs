@@ -4,13 +4,80 @@
   <header class="jumbotron">
     <div class="container">
       <h1>Welcome to MyBuy</h1>
-      <p>View the most worthwhile items to buy online. Add your own testimonials on items you liked</p>
       <p>
-        <a class="btn btn-primary btn-lg" href="/items/new">Add new item</a>
+        View the most worthwhile items to buy online. Add your own testimonials
+        on items you liked
+      </p>
+      <p>
+        <!-- <a class="btn btn-primary btn-lg" href="/items/new">Add new item</a> -->
+        <!-- Button trigger modal -->
+        <button
+          type="button"
+          class="btn btn-primary"
+          data-toggle="modal"
+          data-target="#exampleModal"
+        >
+        Add new item
+        </button>
       </p>
     </div>
   </header>
 
+  <!-- <div class="container">
+    <form action="/items/getDetails/" method="POST">
+      <input type="text" name="link" placeholder="link" />
+      <button>get details</button>
+    </form>
+  </div> -->
+
+  <!-- --------------------------------------------------------------------- -->
+
+  <!-- Modal -->
+  <div
+    class="modal fade"
+    id="exampleModal"
+    tabindex="-1"
+    role="dialog"
+    aria-labelledby="exampleModalLabel"
+    aria-hidden="true"
+  >
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Add a recommended item</h5>
+          <button
+            type="button"
+            class="close"
+            data-dismiss="modal"
+            aria-label="Close"
+          >
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <form action="/items/getDetails/" method="POST">
+          <div class="modal-body">
+            Enter a link to AliExpress, or a product id - of a product you liked:            <input
+              type="text"
+              class="form-control"
+              name="link"
+              placeholder="link \ product id"
+            />
+          </div>
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn btn-secondary"
+              data-dismiss="modal"
+            >
+              Close
+            </button>
+            <button type="submit" class="btn btn-primary">Next</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+  <!-- -------------------------------------------------------------------------- -->
   <div class="row text-center" style="margin-bottom: 50px;">
     <%items.forEach(function(item){ %>
     <div class="col-md-3 col-sm-6">
@@ -24,12 +91,13 @@
         <div class="caption">
           <h4><%= item.name%></h4>
         </div>
-        <p><a href="/items/<%=item._id%>" class="btn btn-primary">More Info</a></p>
+        <p>
+          <a href="/items/<%=item._id%>" class="btn btn-primary">More Info</a>
+        </p>
       </div>
     </div>
-    <%});%>
+    <% });%>
   </div>
-
 </div>
 
 <%- include("../partials/footer") %>

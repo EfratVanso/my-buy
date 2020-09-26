@@ -1,9 +1,13 @@
 <%- include("../partials/header") %>
-
+<style>
+  #rootImg{
+      cursor: pointer;
+  }
+</style>
 <div class="container">
   <div class="row">
     <div class="col-md-3">
-      <p class="lead">YelpCamp</p>
+      <p class="lead">My-Buy</p>
       <div class="list-group">
         <li class="list-group-item active">Info 1</li>
         <li class="list-group-item">Info 2</li>
@@ -14,23 +18,33 @@
     <div class="col-md-9">
       <p></p>
       <div class="thumbnail">
-        <img class="img-responsive" src="<%= item.image%>" style="width: 100%;" alt="" />
+        <img id="rootImg"
+          onclick="window.open(this.src)"
+          class="img-responsive"
+          src="<%= item.image%>"
+          style="width: 70%"
+          alt=""
+        />
         <div class="caption-full">
-          <h4 class="float-right"><%= item.price%>$/night</h4>
+          <h4 class="float-right"><%= item.price%>$</h4>
           <h4><a href=""><%= item.name%></a></h4>
           <p><%= item.description%></p>
-          <em>Submitted by <%= item.author.username%></em>
+          <p><a href="<%=item.link%>"> <%= item.link.substring(0,item.link.indexOf("html")+4) %>        </a></p>
+           <em class="pb-5">Submitted by <%= item.author.username%></em>
+          <p>
+            <%item.image.forEach(function(img){ %>
+             <img src="<%=img%>" width="50px" onclick="document.getElementById('rootImg').src=this.src" />
+            <% }); %>
+          </p>
           <% if(currentUser && item.author.id.equals(currentUser._id)){%>
           <!-- EDIT BUTTON:  -->
           <p></p>
-          <a
-            href="/items/<%=item._id%>/edit"
-            class="btn btn-warning btn-sm"
+          <a href="/items/<%=item._id%>/edit" class="btn btn-warning btn-sm"
             >Edit</a
           >
           <!-- DELETE BUTTON - must be in form (for sending delete request) -->
           <form
-            style="display: inline;"
+            style="display: inline"
             action="/items/<%=item._id%>?_method=DELETE"
             method="POST"
           >
@@ -42,9 +56,7 @@
       </div>
       <div class="card card-body bg-light">
         <div class="text-right">
-          <a
-            class="btn btn-success"
-            href="/items/<%= item._id%>/comments/new"
+          <a class="btn btn-success" href="/items/<%= item._id%>/comments/new"
             >Add New Comment</a
           >
         </div>
@@ -55,8 +67,8 @@
             <strong><%= comment.author.username %></strong>
             <span class="float-right">10 days ago</span>
             <p>
-              <%= comment.text %> 
-            <% if(currentUser && comment.author.id.equals(currentUser._id)){%>
+              <%= comment.text %> <% if(currentUser &&
+              comment.author.id.equals(currentUser._id)){%>
             </p>
             <a
               href="/items/<%=item._id%>/comments/<%=comment._id%>/edit"
@@ -65,7 +77,7 @@
             >
 
             <form
-              style="display: inline;"
+              style="display: inline"
               action="/items/<%=item._id%>/comments/<%=comment._id%>?_method=DELETE"
               method="POST"
             >
