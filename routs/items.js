@@ -7,7 +7,7 @@ var express = require("express"),
 var scrape = require("aliexpress-product-scraper");
 
 //==================================
-//  CAMPGROUNDS ROUTES
+//  ITEMS ROUTES
 //==================================
 //INDEX - show all item
 router.get("/items", function (req, res) {
@@ -68,7 +68,7 @@ router.get("/items/:id", function (req, res) {
       if (err) {
         console.log(err);
       } else {
-        console.log(req.params.id);
+       // console.log(req.params.id);
         res.render("items/show", { item: foundItem });
       }
     });

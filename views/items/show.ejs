@@ -1,6 +1,6 @@
 <%- include("../partials/header") %>
 <style>
-  #rootImg{
+  #rootImg, .commentImgs{
       cursor: pointer;
   }
 </style>
@@ -60,6 +60,7 @@
             >Add New Comment</a
           >
         </div>
+        <hr>
         <!-- comments: -->
         <% item.comments.forEach(function(comment){ %>
         <div class="row">
@@ -67,7 +68,10 @@
             <strong><%= comment.author.username %></strong>
             <span class="float-right">10 days ago</span>
             <p>
-              <%= comment.text %> <% if(currentUser &&
+              <%= comment.text %> 
+              <img class="commentImgs" src="<%=comment.imageComment%>" width="50px" style="display: block;"  onclick="window.open(this.src)" />
+
+              <% if(currentUser &&
               comment.author.id.equals(currentUser._id)){%>
             </p>
             <a
@@ -90,6 +94,7 @@
             <%}%>
           </div>
         </div>
+        <hr>
         <% })%>
       </div>
     </div>
