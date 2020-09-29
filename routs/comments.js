@@ -62,37 +62,39 @@ router.post(
         res.redirect("/items/");
       } else {
         if (req.file) {
-          cloudinary.uploader.upload(req.file.path, function (result) {
+          cloudinary.v2.uploader.upload(req.file.path, function(err, result) {
+          //cloudinary.uploader.upload(req.file.path, function (result) {
             req.body.comment.imageComment = result.secure_url;
-            createNewComment(req,res,item);
+            req.body.comment.imageId = result.public_id;
+            
+            createNewComment(req, res, item);
           });
-        }
-        else{
-        createNewComment(req,res,item);
+        } else {
+          createNewComment(req, res, item);
         }
       }
     });
   }
 );
-function createNewComment(req,res,item){
-Comment.create(req.body.comment, function (err, comment) {
-  if (err) {
-    req.flash("error", "Something went wrong");
-    console.log(err);
-  } else {
-    //add username and id to comment
-    comment.author.id = req.user._id;
-    comment.author.username = req.user.username;
-    //save the comment
-    comment.save();
+function createNewComment(req, res, item) {
+  Comment.create(req.body.comment, function (err, comment) {
+    if (err) {
+      req.flash("error", "Something went wrong");
+      console.log(err);
+    } else {
+      //add username and id to comment
+      comment.author.id = req.user._id;
+      comment.author.username = req.user.username;
+      //save the comment
+      comment.save();
 
-    item.comments.push(comment);
-    item.save();
-    console.log(comment);
-    req.flash("success", "Successfully added comment");
-    res.redirect("/items/" + item._id);
-  }
-});
+      item.comments.push(comment);
+      item.save();
+      console.log(comment);
+      req.flash("success", "Successfully added comment");
+      res.redirect("/items/" + item._id);
+    }
+  });
 }
 // //handle adding new comment -    WORK ONLY WITH PIC
 // router.post(  "/items/:id/comments",  middleware.isLoggedIn,  upload.single('image'),  function (req, res) {
@@ -157,9 +159,7 @@ Comment.create(req.body.comment, function (err, comment) {
 
 //comments edit rout
 router.get(
-  "/items/:id/comments/:comment_id/edit",
-  middleware.checkCommentOwnership,
-  function (req, res) {
+  "/items/:id/comments/:comment_id/edit",  middleware.checkCommentOwnership,upload.single('image'), function (req, res) {
     Comment.findById(req.params.comment_id, function (err, foundComment) {
       if (err) {
         res.redirect("back");
@@ -174,11 +174,12 @@ router.get(
 );
 
 //comments edit rout
-router.put(
-  "/items/:id/comments/:comment_id",
-  middleware.checkCommentOwnership,
-  function (req, res) {
-    Comment.findByIdAndUpdate(
+router.put(  "/items/:id/comments/:comment_id",  middleware.checkCommentOwnership,  function (req, res) {
+  if(req.file){
+    cloudinary.v2.uploader.destroy(req.body.comment.imageComment)
+  }  
+
+  Comment.findByIdAndUpdate(
       req.params.comment_id,
       req.body.comment,
       function (err, updatedComment) {

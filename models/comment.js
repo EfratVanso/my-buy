@@ -9,7 +9,8 @@ var commentSchema = new mongoose.Schema({
         },
         username: String
     },
-    imageComment: String 
+    imageComment: String,
+    imageId: String //for edit and delete
 });
  
 module.exports = mongoose.model("Comment", commentSchema);
