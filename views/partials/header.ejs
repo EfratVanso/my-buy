@@ -12,7 +12,28 @@
   </head>
   
   <body>
+    <style type="text/css">
+      :root {
+    --main-bg-color:  grey;  
+    --color1:#ff0066;
+    --color2:#cc0052;
+}
 
+      body { 
+        /* background: var(--main-bg-color) !important;  */
+      color:var(--color1);
+      } 
+      h1,h2,h3{
+        color:var(--color2);
+      }
+      .navbar{
+        background:var(--color2)!important; 
+      }
+      .btn:not(.btn-warning):not(.btn-danger){
+        background-color: var(--color1) !important;
+        border-color: grey;
+      }
+   </style>
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
@@ -21,14 +42,17 @@
 
 
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <a class="navbar-brand" href="/">My-Buy</a>
+       <b> <a class="navbar-brand" style="color: white;" href="/">My-Buy</a></b>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
           <ul class="navbar-nav">
-            <% if(!currentUser){ %>
             <li class="nav-item active">
+              <a class="nav-link" href="/items">Main Page <span class="sr-only"></span></a>
+            </li>
+            <% if(!currentUser){ %>
+            <li class="nav-item">
               <a class="nav-link" href="/login">Login <span class="sr-only">(current)</span></a>
             </li>
             <li class="nav-item">
