@@ -17,13 +17,17 @@ var commentRouts = require("./routs/comments"),
     itemRouts = require("./routs/items"),
     authRouts = require("./routs/index");
 
-
-// mongoose.connect('mongodb://localhost:27017/yelp_camp', {useNewUrlParser: true, useUnifiedTopology: true});
-
-//mongoose.connect("mongodb://localhost/yelp_camp", {
-mongoose.connect("mongodb://localhost/my-buy", {
+// mongoose.connect("mongodb://localhost/my-buy", {
+//   useNewUrlParser: true,
+//   useUnifiedTopology: true,
+// });
+mongoose.connect("mongodb+srv://efi:Efi681@cluster0.zc9hp.mongodb.net/Cluster0?retryWrites=true&w=majority", {
   useNewUrlParser: true,
-  useUnifiedTopology: true,
+  useCreateIndex: true
+}).then(()=>{
+  console.log("connected to Mongo DB!");
+}).catch(err =>{
+    console.log("ERROR connect to Mongo DB")
 });
 
 app.use(bodyParser.urlencoded({ extended: true }));
