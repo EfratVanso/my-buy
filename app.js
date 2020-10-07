@@ -68,7 +68,8 @@ app.use(commentRouts);
 // app.listen(3000, () => {
 //   console.log("my buy running on port 3000");
 // });
+var port = process.env.PORT || 8080;
 
-app.listen(process.env.PORT, process.env.IP, function(){
+app.listen(port, process.env.IP, function(){
   console.log("MyBuy Server has started!")
 });
