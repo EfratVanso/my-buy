@@ -69,6 +69,6 @@ app.use(commentRouts);
 //   console.log("my buy running on port 3000");
 // });
 
-app.listen(process.env.Port, process.env.IP, function(){
+app.listen(process.env.PORT, process.env.IP, function(){
   console.log("MyBuy Server has started!")
 });
