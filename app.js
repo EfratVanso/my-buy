@@ -71,5 +71,5 @@ app.use(commentRouts);
 var port = process.env.PORT || 8080;
 
 app.listen(port, process.env.IP, function(){
-  console.log("MyBuy Server has started!")
+  console.log("MyBuy Server has started on port 8080!")
 });
