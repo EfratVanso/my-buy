@@ -49,4 +49,10 @@ Each product has comments from users who have also ordered it.
 Efrat Vanso.
 My Site: https://efratvanso.github.io/
 
-### Screenshots
+## Screenshots
+
+<img style="-webkit-user-select: none;margin: auto;width: 700px;" src="https://raw.githubusercontent.com/EfratVanso/my-buy/master/myBuy.png" width="600">
+
+<br/><br/>
+
+<img style="-webkit-user-select: none;margin: auto;width: 700px;" src="https://raw.githubusercontent.com/EfratVanso/my-buy/master/myBuy2.png" width="600">
