@@ -1,11 +1,13 @@
 # my-buy
 
-Website for recommendations on products from the Internet
+Website for recommendations on products from the Internet. <br/>
+You can run it directly here: 
+**https://shrouded-ocean-49511.herokuapp.com/**
 
 ## Description
 
 Website for uploading recommendations for products ordered from the Internet. 
-Product information is retrieved from Aliexpress Api שnd stored on site. 
+Product information is retrieved from Aliexpress Api and stored on site. 
 Each product has comments from users who have also ordered it.
 
 
