@@ -14,11 +14,12 @@ Each product has comments from users who have also ordered it.
 >The app was written with: 
 
    * Node.js
-   * JAVASCRIPT
+   * Javascript
    * HTML
+   * Bootstrap
    * CSS
-   * JQUERY
-
+   * JQuery
+   
 ## Getting Started
 
 ### Dependencies
