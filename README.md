@@ -8,6 +8,15 @@ Website for uploading recommendations for products ordered from the Internet.
 Product information is retrieved from Aliexpress Api שnd stored on site. 
 Each product has comments from users who have also ordered it.
 
+
+>The app was written with: 
+
+   * Node.js
+   * JAVASCRIPT
+   * HTML
+   * CSS
+   * JQUERY
+
 ## Getting Started
 
 ### Dependencies
