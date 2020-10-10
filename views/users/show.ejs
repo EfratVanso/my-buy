@@ -1,11 +1,23 @@
 <%- include("../partials/header") %>
 <div class="container">
+    <!-- row -->
+    <!-- col-4 -->
 <h1>user profile </h1>
 <%= user.username %>
 <%= user.email %>
 <%= user.imageProfile %>
 <img width="300px" src="<%= user.imageProfile %>" alt="" onclick="document.getElementById('rootImg').src=this.src">
 </div>
-
+<!-- col-8  -->
+<h3><%= user.username %>'s campgrounds</h3>
+<ul>
+    <% items.forEach(function(item){ %>
+    <li>
+        <a href="/items/<%= item.id %>">
+            <%= item.name %>
+        </a>
+    </li>
+    <% }); %>
+</ul>
 
 <%- include("../partials/footer") %>

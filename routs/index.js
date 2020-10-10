@@ -2,6 +2,7 @@ var express = require("express"),
   router = express.Router(),
   passport = require("passport"),
   User = require("../models/user");
+  Item = require("../models/item");
 
 var imgUpload = require("./../uploadImagesConfig"),
   upload = imgUpload.upload,
@@ -43,7 +44,7 @@ function createNewUser(req, res){
     imageProfile: req.body.imageProfile,
     imageId: req.body.imageId 
   });
-  User.register(newUser, req.body.password, function (err, user) {
+  User.register(newUser, req.body.password, function (err, user) {// the password in separate arg because this is how it is encrypted
     if (err) {
       console.log(err.message);
       req.flash("error", err.message);
@@ -86,7 +87,14 @@ router.get('/users/:id', function(req,res){
       req.flash("error", "Something went wrong");
       res.redirect("/")
     }
-    res.render("users/show", {user: fondUser})
+    //find the items the user saved
+    Item.find().where("author.id").equals(fondUser._id).exec(function(err, items){
+      if(err){
+        req.flash("error", "Something went wrong");
+        res.redirect("/")
+      }
+      res.render("users/show", {user: fondUser, items:items})
+    })
   });
 });
 
