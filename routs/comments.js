@@ -4,33 +4,37 @@ var express = require("express"),
   Comment = require("../models/comment"),
   middleware = require("../middleware");
 
-// upload images code:=================================
-var multer = require("multer");
+var imgUpload = require("./../uploadImagesConfig"),
+    upload = imgUpload.upload,
+    cloudinary = imgUpload.cloudinary;
 
-//creating custom name for the uploaded file:
-var storage = multer.diskStorage({
-  filename: function (req, file, callback) {
-    callback(null, Date.now() + file.originalname);
-  },
-});
-//check the extension of the file
-var imageFilter = function (req, file, cb) {
-  // accept image files only
-  if (!file.originalname.match(/\.(jpg|jpeg|png|gif)$/i)) {
-    return cb(new Error("Only image files are allowed!"), false);
-  }
-  cb(null, true);
-};
-var upload = multer({ storage: storage, fileFilter: imageFilter });
+// // upload images code:=================================
+// var multer = require("multer");
 
-//cloudinary configuration (need to use ENV variables to keep them secure)
-var cloudinary = require("cloudinary");
-cloudinary.config({
-  //personal config details from my account in cloudinary
-  cloud_name: "efivanso",
-  api_key: 322655568553446, //process.env.CLOUDINARY_API_KEY,
-  api_secret: "RyZ1zi3qLmTm8CyKjY46ry5G_GQ", // process.env.CLOUDINARY_API_SECRET
-});
+// //creating custom name for the uploaded file:
+// var storage = multer.diskStorage({
+//   filename: function (req, file, callback) {
+//     callback(null, Date.now() + file.originalname);
+//   },
+// });
+// //check the extension of the file
+// var imageFilter = function (req, file, cb) {
+//   // accept image files only
+//   if (!file.originalname.match(/\.(jpg|jpeg|png|gif)$/i)) {
+//     return cb(new Error("Only image files are allowed!"), false);
+//   }
+//   cb(null, true);
+// };
+// var upload = multer({ storage: storage, fileFilter: imageFilter });
+
+// //cloudinary configuration (need to use ENV variables to keep them secure)
+// var cloudinary = require("cloudinary");
+// cloudinary.config({
+//   //personal config details from my account in cloudinary
+//   cloud_name: "efivanso",
+//   api_key: 322655568553446, //process.env.CLOUDINARY_API_KEY,
+//   api_secret: "RyZ1zi3qLmTm8CyKjY46ry5G_GQ", // process.env.CLOUDINARY_API_SECRET
+// });
 //==================================
 //  COMMENTS ROUTES
 //==================================
@@ -50,27 +54,23 @@ router.get("/items/:id/comments/new", middleware.isLoggedIn, function (
   });
 });
 
-//handle adding new comment
-router.post(
-  "/items/:id/comments",
-  middleware.isLoggedIn,
-  upload.single("image"),
+//handle adding new comment (with image )
+router.post("/items/:id/comments", middleware.isLoggedIn, upload.single("image"),
   function (req, res) {
     Item.findById(req.params.id, function (err, item) {
       if (err) {
         console.log(err);
         res.redirect("/items/");
       } else {
-        if (req.file) {
+        if (req.file) {//if there is an image
+          //upload the img to my account at cloudinary and return img url + img id
           cloudinary.v2.uploader.upload(req.file.path, function(err, result) {
-          //cloudinary.uploader.upload(req.file.path, function (result) {
             req.body.comment.imageComment = result.secure_url;
             req.body.comment.imageId = result.public_id;
-            
-            createNewComment(req, res, item);
+            createNewComment(req, res, item); //continue saving comment
           });
         } else {
-          createNewComment(req, res, item);
+          createNewComment(req, res, item); //continue saving comment
         }
       }
     });

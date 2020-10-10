@@ -3,6 +3,10 @@ var express = require("express"),
   passport = require("passport"),
   User = require("../models/user");
 
+var imgUpload = require("./../uploadImagesConfig"),
+  upload = imgUpload.upload,
+  cloudinary = imgUpload.cloudinary;
+
 //root rout
 router.get("/", function (req, res) {
   res.render("landing");
@@ -18,8 +22,27 @@ router.get("/register", function (req, res) {
 });
 
 //handle sign up logic
-router.post("/register", function (req, res) {
-  var newUser = new User({ username: req.body.username });
+router.post("/register", upload.single("image"), function (req, res) {
+
+  if (req.file) {//if there is an image
+    //upload the img to my account at cloudinary and return img url + img id
+    cloudinary.v2.uploader.upload(req.file.path, function(err, result) {
+      req.body.imageProfile = result.secure_url;
+      req.body.imageId = result.public_id;
+      createNewUser(req, res);//continue saving user
+    });
+  } else {
+    createNewUser(req, res);//continue saving user
+  }
+});
+function createNewUser(req, res){
+  var newUser = new User({ 
+    username: req.body.username,
+    email: req.body.email,
+    avatar:  req.body.image,
+    imageProfile: req.body.imageProfile,
+    imageId: req.body.imageId 
+  });
   User.register(newUser, req.body.password, function (err, user) {
     if (err) {
       console.log(err.message);
@@ -31,7 +54,7 @@ router.post("/register", function (req, res) {
       res.redirect("/items");
     });
   });
-});
+}
 
 //show login form
 router.get("/login", function (req, res) {
