@@ -60,7 +60,7 @@
             </li>
             <% }else{ %>
               <li class="nav-item">
-                <a class="nav-link" href="#">signed in as <%= currentUser.username %></a>
+                <a class="nav-link" href="/users/<%=currentUser.id%>">signed in as <%= currentUser.username %></a>
               </li>
               <li class="nav-item">
                 <a class="nav-link" href="/logout">Logout</a>
@@ -68,7 +68,8 @@
             <% } %>
           </ul>
         </div>
-      </nav>
+    </nav>
+    
       <div class="container">
         <% if(error && error.length > 0) { %>
           <div class="alert alert-danger" role="alert">

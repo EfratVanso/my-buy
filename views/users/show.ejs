@@ -1,4 +1,11 @@
 <%- include("../partials/header") %>
+<div class="container">
 <h1>user profile </h1>
+<%= user.username %>
+<%= user.email %>
+<%= user.imageProfile %>
+<img width="300px" src="<%= user.imageProfile %>" alt="" onclick="document.getElementById('rootImg').src=this.src">
+</div>
+
 
 <%- include("../partials/footer") %>
