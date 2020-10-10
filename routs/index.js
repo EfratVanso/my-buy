@@ -79,4 +79,16 @@ router.get("/logout", function (req, res) {
   res.redirect("/items");
 });
 
+//user profile
+router.get('/users/:id', function(req,res){
+  User.findById(req.params.id, function(err, fondUser){
+    if(err){
+      req.flash("error", "Something went wrong");
+      res.redirect("/")
+    }
+    res.render("users/show", {user: fondUser})
+  });
+});
+
+
 module.exports = router;

@@ -30,7 +30,11 @@
           <h4><a href=""><%= item.name%></a></h4>
           <p><%= item.description%></p>
           <p><a href="<%=item.link%>"> <%= item.link.substring(0,item.link.indexOf("html")+4) %>        </a></p>
-           <em class="pb-5">Submitted by <%= item.author.username%></em>
+           <em class="pb-5">Submitted by 
+             <a href="/users/<%=item.author.id%>">
+              <%= item.author.username%>
+             </a>
+            </em>
           <p>
             <%item.image.forEach(function(img){ %>
              <img src="<%=img%>" width="50px" onclick="document.getElementById('rootImg').src=this.src" />
