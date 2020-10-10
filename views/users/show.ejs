@@ -1,23 +1,37 @@
 <%- include("../partials/header") %>
 <div class="container">
-    <!-- row -->
-    <!-- col-4 -->
-<h1>user profile </h1>
-<%= user.username %>
-<%= user.email %>
-<%= user.imageProfile %>
-<img width="300px" src="<%= user.imageProfile %>" alt="" onclick="document.getElementById('rootImg').src=this.src">
-</div>
-<!-- col-8  -->
-<h3><%= user.username %>'s campgrounds</h3>
-<ul>
-    <% items.forEach(function(item){ %>
-    <li>
-        <a href="/items/<%= item.id %>">
-            <%= item.name %>
-        </a>
-    </li>
-    <% }); %>
-</ul>
+    <h2 style="
+    text-align: center;
+    background: gainsboro;
+    border-radius: 20px;
+    margin: 5px;
+    padding: 6px;
+">user profile</h2>
 
+  <div class="row">
+    <div class="col-md-4">
+     <b>User Name: </b> <%= user.username %>
+     <br>
+      <b>Email:</b> <%= user.email %>
+      <img style="border-radius: 20px; margin-top: 5px;"
+        width="200px"
+        src="<%= user.imageProfile %>"
+        alt=""
+        onclick="document.getElementById('rootImg').src=this.src"
+      />
+    </div>
+
+    <div class="col-md-8 border-left">
+      <h4 class="ml-4"><%= user.username %>'s items:</h4>
+      <ul style="list-style-type:none;>
+        <% items.forEach(function(item){ %>
+        <li class="m-1">
+            <img src="<%= item.image[0] %>" alt="" width="50px" style="border-radius: 10px;">
+          <a href="/items/<%= item.id %>"> <%= item.name %> </a>
+        </li>
+        <% }); %>
+      </ul>
+    </div>
+  </div>
+</div>
 <%- include("../partials/footer") %>
