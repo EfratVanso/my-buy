@@ -1,19 +1,24 @@
 <%- include("../partials/header") %>
 <div class="container">
-    <h2 style="
-    text-align: center;
-    background: gainsboro;
-    border-radius: 20px;
-    margin: 5px;
-    padding: 6px;
-">user profile</h2>
+  <h2
+    style="
+      text-align: center;
+      background: gainsboro;
+      border-radius: 20px;
+      margin: 5px;
+      padding: 6px;
+    "
+  >
+    user profile
+  </h2>
 
   <div class="row">
     <div class="col-md-4">
-     <b>User Name: </b> <%= user.username %>
-     <br>
+      <b>User Name: </b> <%= user.username %>
+      <br />
       <b>Email:</b> <%= user.email %>
-      <img style="border-radius: 20px; margin-top: 5px;"
+      <img
+        style="border-radius: 20px; margin-top: 5px"
         width="200px"
         src="<%= user.imageProfile %>"
         alt=""
@@ -23,10 +28,15 @@
 
     <div class="col-md-8 border-left">
       <h4 class="ml-4"><%= user.username %>'s items:</h4>
-      <ul style="list-style-type:none;>
+      <ul style="list-style-type: none">
         <% items.forEach(function(item){ %>
         <li class="m-1">
-            <img src="<%= item.image[0] %>" alt="" width="50px" style="border-radius: 10px;">
+          <img
+            src="<%= item.image[0] %>"
+            alt=""
+            width="50px"
+            style="border-radius: 10px"
+          />
           <a href="/items/<%= item.id %>"> <%= item.name %> </a>
         </li>
         <% }); %>
