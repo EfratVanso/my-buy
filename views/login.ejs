@@ -1,32 +1,41 @@
 <%- include("./partials/header") %>
 
-<h2 style="text-align: center;margin: 24px;">Login!</h2>
-<div style="width: 30%; margin: 25px auto;">
+<h2 style="text-align: center;margin: 24px;">Login</h2>
 
-<form action="/login" method="POST">
-    <div class="form-group">
-        <input
-          type="text"
-          name="username"
-          class="form-control"
-          placeholder="user name"
-        />
+<div class="row">
+  <div class="col"></div>
+  <div class="col-8 col-md-4">
+    <div style="margin: 25px auto;">
+
+      <form action="/login" method="POST">
+          <div class="form-group">
+              <input 
+                type="text"
+                name="username"
+                class="form-control"
+                placeholder="user name"
+              />
+            </div>
+            <div class="form-group">
+              <input
+                type="password"
+                name="password"
+                class="form-control"
+                placeholder="password"
+              />
+            </div>
+            <div class="form-group">
+              <button class="btn btn-lg btn-success btn-block">
+                  Login
+              </button>
+            </div>
+      </form>
       </div>
-      <div class="form-group">
-        <input
-          type="password"
-          name="password"
-          class="form-control"
-          placeholder="password"
-        />
-      </div>
-      <div class="form-group">
-        <button class="btn btn-lg btn-success btn-block">
-            Login
-        </button>
-      </div>
-</form>
+  </div>
+  <div class="col"></div>
 </div>
+
+
 
 
 <%- include("./partials/footer") %>
